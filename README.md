@@ -159,35 +159,3 @@ cd PFE-DevOps-Kais
 2️⃣ Déployer l’environnement
 docker-compose up -d
 
-3️⃣ Lancer le pipeline Jenkins
-
-Configurer les credentials GitLab et DockerHub
-
-Lancer le job “CI-CD-Workflow”
-
-Vérifier les dashboards Grafana et Kibana
-
-🧾 Auteur
-
-👤 Kais OUERIEMMI
-📧 kais.oueriemmi@gmail.com
-
-🔗 LinkedIn
-
-💻 GitHub
-
-🏁 Licence
-
-Ce projet est distribué sous la licence MIT.
-Vous êtes libre de l’utiliser, le modifier et le partager à des fins éducatives ou professionnelles.
-
-🙏 Remerciements
-
-Ulmus (Groupe 3S) pour le cadre professionnel et l’accompagnement technique.
-
-École Polytechnique de Sousse pour le suivi académique.
-
-Mes encadrants et collègues pour leur soutien tout au long du projet.
-
-
----
