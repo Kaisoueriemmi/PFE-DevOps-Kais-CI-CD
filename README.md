@@ -1,168 +1,193 @@
-# PFE-DevOps-Kais-CI-CD
-# 🚀 Projet de Fin d'Études – Mise en place d’un Workflow CI/CD avec Backup et Monitoring
+# 🚀 Projet de Fin d’Études – Mise en place d’un Workflow CI/CD avec Supervision et Sauvegarde
 
-## 👨‍💻 Réalisé par
+## 👨‍💻 Auteur
 **Kais OUERIEMMI**  
 Étudiant en Ingénierie Logicielle et Systèmes d’Information  
-École Polytechnique de Sousse – Tunisie  
+🎓 École Polytechnique de Sousse – Tunisie  
+🏢 Entreprise d’accueil : **Ulmus (Groupe 3S)**  
 📅 Février – Juin 2025  
-🏢 Entreprise d’accueil : **Ulmus (Groupe 3S)**
 
 ---
 
-## 🎯 Objectif du projet
+## 🎯 Résumé du projet
 
-L’objectif de ce projet est de **concevoir et implémenter une chaîne DevOps complète (CI/CD)** intégrant :
-- L’**intégration continue (CI)** avec Jenkins et GitLab,
-- Le **déploiement continu (CD)** vers un cluster Kubernetes,
-- L’**analyse de qualité du code** (SonarQube),
-- La **gestion des artefacts** (Nexus),
-- Le **scan de sécurité** (Trivy),
-- La **supervision et la visualisation** (Prometheus, Grafana, ELK),
-- La **sauvegarde et la restauration automatiques** (Velero + MinIO).
-
-Ce projet s’inscrit dans une démarche d’**automatisation**, de **sécurisation** et de **fiabilisation** du cycle de vie logiciel.
+Ce projet s’inscrit dans une démarche de transformation DevOps visant à **automatiser l’intégration et le déploiement des applications**, tout en assurant leur **supervision** et leur **sauvegarde automatique**.  
+L’objectif principal est de concevoir un **pipeline CI/CD complet**, couvrant toutes les étapes du cycle de vie applicatif :  
+du **build** à la **supervision**, en passant par la **qualité du code**, la **sécurité**, et la **sauvegarde des environnements**.
 
 ---
 
-## 🧩 Architecture Globale
+## 🧩 Objectifs du projet
 
-L’infrastructure repose sur une **architecture hybride** combinant :
-- **Proxmox VE** pour la virtualisation et l’hébergement local des services DevOps (Jenkins, SonarQube, Nexus, GitLab, etc.)
-- **AWS EC2** pour l’hébergement du cluster Kubernetes et des services de supervision.
+### 🎯 Objectif principal
+Mettre en place une **chaîne CI/CD complète** pour le déploiement automatisé d’applications, intégrant les dimensions de **qualité**, **sécurité**, **supervision** et **backup**.
 
-### 🗺️ Schéma simplifié de l’architecture
+### 🧱 Objectifs spécifiques
+- Déployer une infrastructure virtuelle sur **Proxmox VE**.  
+- Automatiser le provisioning via **Terraform**.  
+- Configurer un pipeline **CI/CD** avec **GitLab** et **Jenkins**.  
+- Intégrer l’analyse de code (**SonarQube**) et le scan de sécurité (**Trivy**).  
+- Gérer les artefacts avec **Nexus Repository**.  
+- Déployer sur un cluster **Kubernetes (AWS EC2)**.  
+- Superviser avec **Prometheus** et **Grafana**.  
+- Centraliser les logs avec la **stack ELK**.  
+- Sauvegarder et restaurer les environnements via **Velero + MinIO**.
+
+---
+
+## ⚙️ Architecture globale
+
+L’architecture repose sur une **infrastructure hybride** combinant :
+- **Proxmox (local)** pour les services de build et d’intégration (Jenkins, GitLab, SonarQube, Nexus, Portainer).  
+- **AWS (cloud)** pour le déploiement des applications Kubernetes et la supervision distante.
+
+### 🖼️ Schéma d’architecture
+*(À insérer : `docs/architecture.png`)*
+
 [ Développeur ]
 ↓
 [ GitLab ]
 ↓
-[ Jenkins CI ]
+[ Jenkins ]
 ↓
-[ SonarQube ] → [ Nexus ]
+[ SonarQube ] → [ Trivy ] → [ Nexus ]
 ↓
-[ Kubernetes (AWS) ]
+[ ArgoCD / Kubernetes ]
 ↓
 [ Prometheus | Grafana | ELK | Velero ]
 
 
 ---
 
-## ⚙️ Technologies et outils utilisés
+## 🧰 Technologies utilisées
 
-| Domaine | Outils / Technologies |
-|----------|-----------------------|
-| **Virtualisation** | Proxmox VE |
-| **Versionning & SCM** | Git, GitLab |
-| **CI/CD** | Jenkins, ArgoCD |
-| **Conteneurisation** | Docker, Kubernetes |
-| **Infrastructure as Code** | Terraform |
-| **Analyse de code** | SonarQube |
-| **Sécurité** | Trivy |
-| **Gestion d’artefacts** | Nexus Repository |
-| **Supervision** | Prometheus, Grafana |
-| **Logging** | ELK Stack (Elasticsearch, Logstash, Kibana) |
-| **Sauvegarde** | Velero + MinIO |
-| **Monitoring applicatif** | Spring Boot Actuator |
-
----
-
-## 📅 Gestion de projet – Méthodologie Scrum
-
-Le projet a été conduit selon la **méthodologie agile Scrum**, découpée en sprints :
-
-| Sprint | Période | Objectifs principaux |
-|--------|----------|----------------------|
-| **Sprint 0** | Analyse & préparation | Étude de l’existant, définition des besoins, planification |
-| **Sprint 1** | Infrastructure | Mise en place de l’environnement Proxmox + Terraform |
-| **Sprint 2** | CI/CD | Déploiement et intégration des outils Jenkins, GitLab, SonarQube, Nexus |
-| **Sprint 3** | Monitoring & Backup | Configuration de Prometheus, Grafana, ELK, Velero |
-| **Sprint 4** | Finalisation | Tests, validation, rédaction du rapport et documentation |
+| Domaine | Outil / Technologie | Rôle |
+|----------|---------------------|------|
+| Virtualisation | Proxmox VE | Hébergement local des services |
+| IaC | Terraform | Provisionnement automatique |
+| Gestion de code | GitLab | SCM et déclenchement CI |
+| CI/CD | Jenkins | Build, test, analyse, déploiement |
+| Qualité du code | SonarQube | Analyse et reporting |
+| Sécurité | Trivy | Scan de vulnérabilités |
+| Artefacts | Nexus | Stockage d’images et dépendances |
+| Orchestration | Kubernetes | Déploiement des applications |
+| Déploiement continu | ArgoCD, Helm | GitOps et automation |
+| Supervision | Prometheus, Grafana | Collecte et visualisation des métriques |
+| Logs | ELK Stack | Centralisation et analyse |
+| Sauvegarde | Velero + MinIO | Backup & restore |
+| Monitoring applicatif | Spring Boot Actuator | Export de métriques vers Prometheus |
 
 ---
 
-## 🔁 Workflow CI/CD
+## 🧠 Méthodologie de travail
 
-1. **Développeur** pousse le code sur GitLab  
-2. **Jenkins** déclenche automatiquement le pipeline CI  
-3. **SonarQube** analyse la qualité du code  
-4. **Trivy** scanne les vulnérabilités dans les images Docker  
-5. **Nexus** stocke les artefacts générés (builds, images)  
-6. **Jenkins/ArgoCD** déploie sur le cluster Kubernetes  
-7. **Prometheus** collecte les métriques, **Grafana** les affiche  
-8. **Velero** effectue des sauvegardes planifiées sur MinIO  
-9. **ELK** centralise les logs applicatifs et système
+Le projet a été mené selon la **méthodologie Agile Scrum**, répartie en **4 sprints** :
 
----
-
-## 🧠 Détails techniques
-
-### 🔧 Jenkins
-- Intégré avec **GitLab Webhooks**
-- Pipelines multibranch automatisés
-- Étapes : build → test → analyse → artefact → déploiement
-
-### 📦 Nexus
-- Gestion centralisée des artefacts Maven et Docker
-- Versionning automatique
-
-### 🔍 SonarQube
-- Vérification du **code smell**, **coverage** et **duplications**
-- Qualité du code mesurée avant chaque merge
-
-### 🔐 Trivy
-- Scan automatique des images Docker dans le pipeline
-- Génération de rapports HTML archivés
-
-### ☁️ Kubernetes (AWS)
-- Cluster EC2 configuré avec **kubectl + Helm**
-- Déploiement automatisé via Jenkins et ArgoCD
-
-### 🧭 Monitoring et Logs
-- **Prometheus** : collecte des métriques depuis `/actuator/prometheus`
-- **Grafana** : tableaux de bord personnalisés (CPU, mémoire, containers)
-- **ELK** : analyse centralisée des logs applicatifs et système
-
-### 💾 Backup & Restore
-- **Velero** planifie et exécute les sauvegardes quotidiennes du cluster
-- Sauvegardes stockées dans **MinIO** (compatible S3)
+| Sprint | Contenu principal |
+|--------|------------------|
+| Sprint 0 | Analyse des besoins, étude de l’existant |
+| Sprint 1 | Mise en place de l’infrastructure (Proxmox + Terraform) |
+| Sprint 2 | Mise en place du pipeline CI/CD (GitLab, Jenkins, SonarQube, Nexus, Kubernetes) |
+| Sprint 3 | Supervision, visualisation et sauvegarde (Prometheus, Grafana, ELK, Velero) |
 
 ---
 
-## 📊 Résultats obtenus
+## 🔁 Pipeline CI/CD
 
-- ✅ Automatisation complète du pipeline CI/CD  
-- ✅ Réduction du temps de déploiement de **70 %**  
-- ✅ Supervision et alerting centralisés  
-- ✅ Sauvegardes automatiques avec restauration testée  
-- ✅ Amélioration significative de la **qualité du code**  
+### Étapes principales :
+1. **Commit du code source** sur GitLab  
+2. **Build** et compilation du projet via Jenkins  
+3. **Analyse SonarQube** (qualité du code)  
+4. **Scan Trivy** (sécurité des images Docker)  
+5. **Publication** de l’image sur **Nexus**  
+6. **Déploiement automatique** sur Kubernetes via **ArgoCD/Helm**  
+7. **Supervision** (Prometheus, Grafana)  
+8. **Sauvegarde automatique** (Velero + MinIO)
 
 ---
 
-## 🧾 Structure du projet
+## 📊 Supervision et observabilité
 
-PFE-DevOps-Kais-CI-CD/
+- **Prometheus** : collecte des métriques depuis les pods, Jenkins, Kubernetes et Spring Boot.  
+- **Grafana** : visualisation via des dashboards dynamiques.  
+- **ELK** : centralisation et analyse des logs applicatifs et systèmes.  
+- **Alertmanager** : gestion des alertes.
+
+---
+
+## 💾 Sauvegarde et restauration
+
+- **Velero** sauvegarde automatiquement les namespaces Kubernetes (base de données, volumes, configurations).  
+- **MinIO** sert de stockage compatible S3.  
+- **Tests de restauration** validés sur un environnement isolé.
+
+---
+
+## 📈 Résultats et bénéfices
+
+- 🚀 Déploiement automatisé et reproductible  
+- 🔍 Contrôle qualité du code en continu  
+- 🧱 Supervision complète de l’infrastructure  
+- 🛡️ Sauvegarde planifiée et restauration fiable  
+- 💡 Réduction du temps de livraison de **70 %**  
+
+---
+
+## 🧾 Structure du dépôt
+
+PFE-DevOps-Kais/
 │
-├── backend/ # Application Java (Spring Boot)
-├── frontend/ # Application Angular
-├── jenkins/ # Pipelines Jenkinsfile
-├── k8s/ # Manifests Kubernetes YAML
-├── monitoring/ # Configurations Prometheus, Grafana
-├── backup/ # Scripts Velero & MinIO
-├── terraform/ # Déploiement de l’infrastructure
-├── docs/ # Documentation et rapport PDF
+├── backend/ # Code source (Java Spring Boot)
+├── frontend/ # Interface utilisateur (Angular)
+├── jenkins/ # Pipelines Jenkins (Jenkinsfile)
+├── kubernetes/ # Manifests YAML
+├── terraform/ # Scripts d’infrastructure
+├── monitoring/ # Configurations Prometheus/Grafana
+├── backup/ # Configs Velero et MinIO
+├── docs/ # Documentation et schémas
 └── README.md # Documentation principale
-
 
 
 ---
 
 ## 🧰 Installation et utilisation
 
-### 📥 Cloner le projet
+### 1️⃣ Cloner le projet
 ```bash
-git clone https://github.com/kaisoueriemmi/PFE-DevOps-Kais-CI-CD.git
-cd PFE-DevOps-Kais-CI-CD
+git clone https://github.com/kaisoueriemmi/PFE-DevOps-Kais.git
+cd PFE-DevOps-Kais
+2️⃣ Déployer l’environnement
+docker-compose up -d
+
+3️⃣ Lancer le pipeline Jenkins
+
+Configurer les credentials GitLab et DockerHub
+
+Lancer le job “CI-CD-Workflow”
+
+Vérifier les dashboards Grafana et Kibana
+
+🧾 Auteur
+
+👤 Kais OUERIEMMI
+📧 kais.oueriemmi@gmail.com
+
+🔗 LinkedIn
+
+💻 GitHub
+
+🏁 Licence
+
+Ce projet est distribué sous la licence MIT.
+Vous êtes libre de l’utiliser, le modifier et le partager à des fins éducatives ou professionnelles.
+
+🙏 Remerciements
+
+Ulmus (Groupe 3S) pour le cadre professionnel et l’accompagnement technique.
+
+École Polytechnique de Sousse pour le suivi académique.
+
+Mes encadrants et collègues pour leur soutien tout au long du projet.
 
 
-
-
+---
